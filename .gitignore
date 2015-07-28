@@ -3,3 +3,8 @@
 *.sublime-workspace
 
 *.min.html
+
+*.iws
+workspace.xml
+tasks.xml
+
