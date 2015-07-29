@@ -19,7 +19,7 @@ var Position = (function() {
 					};
 				}
 
-				this._x = x;
+				this._x = value;
 			}
 		},
 		y: {
@@ -36,7 +36,7 @@ var Position = (function() {
 					};
 				}
 
-				this._y = y;
+				this._y = value;
 			}
 		}
 
