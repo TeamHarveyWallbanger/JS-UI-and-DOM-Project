@@ -1,4 +1,8 @@
-(function engine() {
+function engine() {
+	if (!Images.areAllLoaded()) {
+		setTimeout(engine, 50);
+		return;
+	}
 
     var stage = new Kinetic.Stage({
             container: 'kinetic-container',
@@ -28,10 +32,11 @@
 
 
 
-    gameLayer.add(rect);
     stage.add(gameLayer);
+    gameLayer.add(rect);
 
     gameLayer.draw();
 
 
-})();
+}
+engine();
