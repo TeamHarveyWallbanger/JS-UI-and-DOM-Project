@@ -1,35 +1,53 @@
 var Animation = (function() {
-    var Animation = function(source, rows, cols) {
-        var self = this;
-        this.image = new Image();
+    function setCrop(animation) {
+        var cropX = animation._frameWidth * animation._col,
+            cropY = animation._frameHeight * animation._row;
 
-        this.image.onload = function() {
-            self.loaded = true;
-            self.frameWidth = (self.image.width / cols) | 0;
-            self.frameHeight = (self.image.height / rows) | 0;
+        animation._frame.setCrop({x: cropX, y: cropY, width: animation._frameWidth, height: animation._frameHeight});
+    }
+
+    function updateFrame(animation) {
+        animation._col = ((animation._col + 1) % animation._cols) | 0;
+        if (animation._col === 0) {
+            animation._row = ((animation._row + 1) % animation._rows) | 0;
         }
 
-        this.image.src = source;
+        setCrop(animation);
+    }
 
-        this.rows = rows;
-        this.cols = cols;
+    var Animation = function(layer, image, rows, cols, x, y, framerate) {
+        this._rows = rows;
+        this._cols = cols;
 
-        this.row = 0;
-        this.col = 0;
+        this._framerate = framerate;
+
+        this._frameCounter = 0;
+
+        this._row = 0;
+        this._col = 0;
+
+        this._frameWidth = image.width / cols;
+        this._frameHeight = image.height / rows;
+
+        this._frame = new Kinetic.Image({
+            x: x,
+            y: y,
+            width: this._frameWidth,
+            height: this._frameHeight,
+            image: image,
+        });
+
+        setCrop(this);
+
+        layer.add(this._frame);
     }
 
     Animation.prototype.update = function() {
-        this.col = ((this.col + 1) % this.cols) | 0;
-        if (this.col === 0) {
-            this.row = ((this.row + 1) % this.rows) | 0;
-        }
-    }
+        this._frameCounter = ((this._frameCounter + 1) % this._framerate) | 0;
 
-    Animation.prototype.getX = function() {
-        return this.col * this.frameWidth;
-    }
-    Animation.prototype.getY = function() {
-        return this.row * this.frameHeight;
+        if (this._frameCounter === 0) {
+            updateFrame(this);
+        }
     }
 
     return Animation;
