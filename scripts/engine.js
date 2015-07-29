@@ -18,13 +18,13 @@ function engine() {
 //    heroAnim.lockRow = 0;
     // heroAnim.lockCol = 5;
 
-    var coinStartPos = new Position(900, 200);
     var radius = (Images['coin.png'].width / 10) / 2;
+    var coinStartPos = new Position(0 + radius, 0 + radius);
     var coin = new Coin(coinStartPos, radius, gameLayer, Images['coin.png']);
 
     function gameAnimation() {
         requestAnimationFrame(gameAnimation);
-        coin.updateX(-5);
+        // coin.updateX(-5);
         gameLayer.draw();
     }
 
