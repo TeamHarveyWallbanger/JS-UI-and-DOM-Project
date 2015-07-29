@@ -11,11 +11,15 @@ var Coin = (function () {
     }
 
     function Coin(position, radius, layer, image) {
-        var animationPosition;
+        var animationPosition,
+            diameter = radius * 2;
+
         this.position = position;
         this.radius = radius;
         animationPosition = calculateAnimationPosition(this);
         this._animation = new Animation(layer, image, 1, 10, animationPosition.x, animationPosition.y);
+        this._animation.width = diameter;
+        this._animation.height = diameter;
         this._animation.start(ANIMATION_FRAMERATE);
     }
 
