@@ -40,10 +40,10 @@ function engine() {
         gameLayer = new Kinetic.Layer();
 
 
-    var heroAnim = new Animation(gameLayer, Images['hero.png'], 3, 6, 0, 0, 5);
+    var heroAnim = new Animation(gameLayer, Images['hero.png'], 3, 6, {x: 0, y: 0}, 5);
 
 
-    var coinAnim = new Animation(gameLayer, Images['coin.png'], 1, 10, 150, 150, 5);
+    var coinAnim = new Animation(gameLayer, Images['coin.png'], 1, 10, {x: 350, y: 600}, 4);
 
     stage.add(gameLayer);
 
