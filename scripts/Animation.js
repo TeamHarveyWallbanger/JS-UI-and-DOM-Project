@@ -28,7 +28,7 @@ var Animation = (function() {
         setCrop(animation);
     }
 
-    var Animation = function(layer, image, rows, cols, x, y, frameRate) {
+    var Animation = function(layer, image, rows, cols, x, y) {
         validateRowsCols(rows);
         validateRowsCols(cols);
         Object.defineProperties(this, {
