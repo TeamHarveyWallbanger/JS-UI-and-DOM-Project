@@ -4,16 +4,16 @@ var Coin = (function () {
 
     function calculateAnimationPosition(coin) {
 
-        var newX = coin.position.x - coin.radious,
-            newY = coin.position.y - coin.radious;
+        var newX = coin.position.x - coin.radius,
+            newY = coin.position.y - coin.radius;
 
         return new Position(newX, newY);
     }
 
-    function Coin(position, radious, layer, image) {
+    function Coin(position, radius, layer, image) {
         var animationPosition;
         this.position = position;
-        this.radious = radious;
+        this.radius = radius;
         animationPosition = calculateAnimationPosition(this);
         this._animation = new Animation(layer, image, 1, 10, animationPosition.x, animationPosition.y);
         this._animation.start(ANIMATION_FRAMERATE);
@@ -29,9 +29,9 @@ var Coin = (function () {
     };
 
     Object.defineProperties(Coin.prototype, {
-        radious: {
+        radius: {
             get: function () {
-                return this._radious;
+                return this._radius;
             },
 
             set: function (value) {
@@ -43,7 +43,7 @@ var Coin = (function () {
                     throw new Error('Coin radius cannot be less than 1!');
                 }
 
-                this._radious = value;
+                this._radius = value;
             }
         },
 
