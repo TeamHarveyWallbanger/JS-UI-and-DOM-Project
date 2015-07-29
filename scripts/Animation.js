@@ -11,7 +11,6 @@ var Animation = (function() {
     function setCrop(animation) {
         var cropX = animation._frameWidth * animation._col,
             cropY = animation._frameHeight * animation._row;
-            // debugger;
 
         animation._frame.setCrop({x: cropX, y: cropY, width: animation._frameWidth, height: animation._frameHeight});
     }
@@ -68,17 +67,17 @@ var Animation = (function() {
         setCrop(this);
 
         layer.add(this._frame);
-    }
+    };
 
     Animation.prototype.start = function(milliseconds) {
         this._updateIntervalId = setInterval(updateFrame, milliseconds, this);
         this._isRunning = true;
-    }
+    };
 
     Animation.prototype.stop = function() {
         clearInterval(this._updateIntervalId);
         this._isRunning = false;
-    }
+    };
 
     Object.defineProperties(Animation.prototype, {
         x: {
