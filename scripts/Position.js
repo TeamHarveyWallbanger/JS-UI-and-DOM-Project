@@ -14,8 +14,8 @@ var Position = (function() {
 			set: function(value) {
 				if (typeof(value) !== 'number') {
 					throw {
-						'NotNumberX',
-						'X must be of type number.'
+						name: 'NotNumberX',
+						message: 'X must be of type number.'
 					};
 				}
 
@@ -31,8 +31,8 @@ var Position = (function() {
 			set: function(value) {
 				if (typeof(value) !== 'number') {
 					throw {
-						'NotNumberY',
-						'Y must be of type number.'
+						name: 'NotNumberY',
+						message: 'Y must be of type number.'
 					};
 				}
 
