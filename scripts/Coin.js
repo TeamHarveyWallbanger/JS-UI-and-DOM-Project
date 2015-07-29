@@ -24,6 +24,20 @@ var Coin = (function () {
 
                 this._radious = value;
             }
+        },
+
+        position: {
+            get: function() {
+                return this._position;
+            },
+
+            set: function(value) {
+                if(!value instanceof Position) {
+                    throw new Error('Value must be an instance of Position!');
+                }
+
+                this._position = value;
+            }
         }
     });
 
