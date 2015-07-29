@@ -61,7 +61,7 @@ var Animation = (function() {
             y: y,
             width: this._frameWidth,
             height: this._frameHeight,
-            image: image,
+            image: image
         });
 
         setCrop(this);
