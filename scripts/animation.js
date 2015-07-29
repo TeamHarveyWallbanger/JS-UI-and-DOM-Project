@@ -7,7 +7,7 @@ var Animation = (function() {
             self.loaded = true;
             self.frameWidth = (self.image.width / cols) | 0;
             self.frameHeight = (self.image.height / rows) | 0;
-        }
+        };
 
         this.image.src = source;
 
@@ -16,21 +16,21 @@ var Animation = (function() {
 
         this.row = 0;
         this.col = 0;
-    }
+    };
 
     Animation.prototype.update = function() {
         this.col = ((this.col + 1) % this.cols) | 0;
         if (this.col === 0) {
             this.row = ((this.row + 1) % this.rows) | 0;
         }
-    }
+    };
 
     Animation.prototype.getX = function() {
         return this.col * this.frameWidth;
-    }
+    };
     Animation.prototype.getY = function() {
         return this.row * this.frameHeight;
-    }
+    };
 
     return Animation;
 })();
