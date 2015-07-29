@@ -1,19 +1,26 @@
-var coin = (function main() {
-    var coinAnimation = new Animation('Sprites/Coin.png', 1, 10);
+var Coin = (function() {
+	function Coin(position, radious) {
+		this.position = position;
+		this.animation = new Animation('assets/Coin.png', 1, 10);
+		this.radious = radious;
+	}
 
-    function updateWrapper() {
-        coinAnimation.update();
-    }
-    setInterval(updateWrapper, 100);
+	return Coin;
+    // var coinAnimation = new Animation('Sprites/Coin.png', 1, 10);
 
-    function gameAnimation() {
-        requestAnimationFrame(gameAnimation);
-        if (!coinAnimation.loaded) {
-            return;
-        }
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // function updateWrapper() {
+    //     coinAnimation.update();
+    // }
+    // setInterval(updateWrapper, 100);
 
-        ctx.drawImage(coinAnimation.image, coinAnimation.getX(), coinAnimation.getY(), coinAnimation.frameWidth, coinAnimation.frameHeight, 0, 0, coinAnimation.frameWidth, coinAnimation.frameHeight);
-    }
-    gameAnimation();
+    // function gameAnimation() {
+    //     requestAnimationFrame(gameAnimation);
+    //     if (!coinAnimation.loaded) {
+    //         return;
+    //     }
+    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //     ctx.drawImage(coinAnimation.image, coinAnimation.getX(), coinAnimation.getY(), coinAnimation.frameWidth, coinAnimation.frameHeight, 0, 0, coinAnimation.frameWidth, coinAnimation.frameHeight);
+    // }
+    // gameAnimation();
 })();
