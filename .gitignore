@@ -8,3 +8,5 @@
 workspace.xml
 tasks.xml
 
+*.xml
+.idea/JS-UI-and-DOM-Project.iml
