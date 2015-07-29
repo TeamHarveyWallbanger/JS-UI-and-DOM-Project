@@ -12,7 +12,7 @@ var Animation = (function() {
         var cropX = animation._frameWidth * animation._col,
             cropY = animation._frameHeight * animation._row;
 
-        animation._frame.setCrop({x: cropX, y: cropY, width: animation._frameWidth, height: animation._frameHeight});
+        animation._image.setCrop({x: cropX, y: cropY, width: animation._frameWidth, height: animation._frameHeight});
     }
 
     function updateFrame(animation) {
@@ -56,17 +56,18 @@ var Animation = (function() {
         this._frameWidth = image.width / cols;
         this._frameHeight = image.height / rows;
 
-        this._frame = new Kinetic.Image({
+        this._image = new Kinetic.Image({
             x: x,
             y: y,
-            width: this._frameWidth,
-            height: this._frameHeight,
             image: image
         });
 
+        this.width = this._frameWidth;
+        this.height = this._frameHeight;
+
         setCrop(this);
 
-        layer.add(this._frame);
+        layer.add(this._image);
     };
 
     Animation.prototype.start = function(milliseconds) {
@@ -82,7 +83,7 @@ var Animation = (function() {
     Object.defineProperties(Animation.prototype, {
         x: {
             get: function() {
-                return this._frame.getX();
+                return this._image.getX();
             },
             set: function(value) {
                 if (typeof(value) !== 'number') {
@@ -92,12 +93,12 @@ var Animation = (function() {
                     };
                 }
 
-                this._frame.setX(value);
+                this._image.setX(value);
             }
         },
         y: {
             get: function() {
-                return this._frame.getY();
+                return this._image.getY();
             },
             set: function(value) {
                 if (typeof(value) !== 'number') {
@@ -107,7 +108,7 @@ var Animation = (function() {
                     };
                 }
 
-                this._frame.setY(value);
+                this._image.setY(value);
             }
         },
         lockRow: {
@@ -171,6 +172,36 @@ var Animation = (function() {
         isRunning: {
             get: function() {
                 return this._isRunning;
+            }
+        },
+        width: {
+            get: function() {
+                return this._image.getWidth();
+            },
+            set: function(value) {
+                if (typeof(value) !== 'number' || value <= 0) {
+                    throw {
+                        name: 'InvalidWidth',
+                        message: 'Width must be a number greater than 0.'
+                    };
+                }
+
+                this._image.setWidth(value);
+            }
+        },
+        height: {
+            get: function() {
+                return this._image.getHeight();
+            },
+            set: function(value) {
+                if (typeof(value) !== 'number' || value <= 0) {
+                    throw {
+                        name: 'InvalidHeight',
+                        message: 'Height must be a number greater than 0.'
+                    };
+                }
+
+                this._image.setHeight(value);
             }
         }
     });
