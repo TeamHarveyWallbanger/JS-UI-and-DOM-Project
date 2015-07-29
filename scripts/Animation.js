@@ -19,7 +19,7 @@ var Animation = (function() {
         this._rows = rows;
         this._cols = cols;
 
-        this._framerate = framerate;
+        this.frameRate = frameRate;
 
         this._frameCounter = 0;
 
@@ -45,7 +45,7 @@ var Animation = (function() {
     }
 
     Animation.prototype.update = function() {
-        this._frameCounter = ((this._frameCounter + 1) % this._framerate) | 0;
+        this._frameCounter = ((this._frameCounter + 1) % this.frameRate) | 0;
 
         if (this._frameCounter === 0) {
             updateFrame(this);
