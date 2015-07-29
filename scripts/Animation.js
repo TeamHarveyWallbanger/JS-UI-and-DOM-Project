@@ -8,16 +8,14 @@ var Animation = (function() {
 
     function updateFrame(animation) {
         animation._col = ((animation._col + 1) % animation._cols) | 0;
-        if (!animation._Row && animation._col === 0) {
+        if ((animation._setRow === undefined) && animation._col === 0) {
             animation._row = ((animation._row + 1) % animation._rows) | 0;
         }
 
         setCrop(animation);
     }
 
-    var Animation = function(layer, image, rows, cols, position, framerate, setRow) {
-        this.position = position;
-
+    var Animation = function(layer, image, rows, cols, x, y, frameRate, setRow) {
         this._rows = rows;
         this._cols = cols;
 
@@ -27,15 +25,15 @@ var Animation = (function() {
 
         this._setRow = setRow;
 
-        this._row = 0;
+        this._row = this._setRow || 0;
         this._col = 0;
 
         this._frameWidth = image.width / cols;
         this._frameHeight = image.height / rows;
 
         this._frame = new Kinetic.Image({
-            x: this.position.x,
-            y: this.position.y,
+            x: x,
+            y: y,
             width: this._frameWidth,
             height: this._frameHeight,
             image: image,
@@ -53,6 +51,55 @@ var Animation = (function() {
             updateFrame(this);
         }
     }
+
+    Object.defineProperties(Animation.prototype, {
+        x: {
+            get: function() {
+                return this._frame.getX();
+            },
+            set: function(value) {
+                if (typeof(value) !== 'number') {
+                    throw {
+                        name: 'NotNumberX',
+                        message: 'X must be of type number.'
+                    };
+                }
+
+                this._frame.setX(value);
+            }
+        },
+        y: {
+            get: function() {
+                return this._frame.getY();
+            },
+            set: function(value) {
+                if (typeof(value) !== 'number') {
+                    throw {
+                        name: 'NotNumberY',
+                        message: 'Y must be of type number.'
+                    };
+                }
+
+                this._frame.setY(value);
+            }
+        },
+        frameRate: {
+            get: function() {
+                return this._framerate;
+            },
+            set: function(value) {
+                if (typeof(value) !== 'number' || value < 1) {
+                    throw {
+                        name: 'InvalidFrameRate',
+                        message: 'FrameRate must be of type number greater or equal to 1.'
+                    };
+                }
+
+                this._framerate = value;
+            }
+        },
+
+    });
 
     return Animation;
 })();

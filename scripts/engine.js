@@ -12,47 +12,34 @@ function engine() {
 
 //============================================================= HEAD =============================================================
         gameLayer = new Kinetic.Layer();
-        rect = new Kinetic.Rect({
-            x: 100,
-            y: 150,
-            width: 75,
-            height: 225,
-            fill: 'white',
-            stroke: 'darkgoldenrod',
-            lineWidth: 5
-        }),
 
-        coin = new Kinetic.Circle({
-            x: 750,
-            y: 350,
-            radius: 50,
-            fill: 'red',
-            draggable: false
-        });
+        // coin = new Kinetic.Circle({
+        //     x: 750,
+        //     y: 350,
+        //     radius: 50,
+        //     fill: 'red',
+        //     draggable: false
+        // });
 
 
     stage.add(gameLayer);
-    gameLayer.add(rect);
-    gameLayer.add(coin);
-    gameLayer.draw();
+    // gameLayer.add(coin);
 
 //=============================================================
-        gameLayer = new Kinetic.Layer();
+
+    var heroAnim = new Animation(gameLayer, Images['hero.png'], 3, 6, 0, 0, 5, 0);
 
 
-    var heroAnim = new Animation(gameLayer, Images['hero.png'], 3, 6, 0, 0, 5);
+    // var coinAnim = new Animation(gameLayer, Images['coin.png'], 1, 10, 150, 150, 5);
 
-
-    var coinAnim = new Animation(gameLayer, Images['coin.png'], 1, 10, 150, 150, 5);
-
-    stage.add(gameLayer);
+    // stage.add(gameLayer);
 
 //============================================================= ANIMATION =============================================================
     function gameAnimation() {
 
         requestAnimationFrame(gameAnimation);
         heroAnim.update();
-        coinAnim.update();
+        // coinAnim.update();
         gameLayer.draw();
 
     }
