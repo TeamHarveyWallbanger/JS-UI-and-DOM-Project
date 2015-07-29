@@ -1,8 +1,8 @@
 function engine() {
-	if (!Images.areAllLoaded()) {
-		setTimeout(engine, 50);
-		return;
-	}
+    if (!Images.areAllLoaded()) {
+        setTimeout(engine, 50);
+        return;
+    }
 
     var stage = new Kinetic.Stage({
             container: 'kinetic-container',
@@ -22,9 +22,13 @@ function engine() {
     var radius = (Images['coin.png'].width / 10) / 2;
     var coin = new Coin(coinStartPos, radius, gameLayer, Images['coin.png']);
 
+    var obstacleStartPos = new Position(900, 300);
+    var obstacle = new Obstacle(obstacleStartPos, gameLayer, Images['BunchOfRocks.png']);
+
     function gameAnimation() {
         requestAnimationFrame(gameAnimation);
         coin.updateX(-5);
+        obstacle.updateX(-5);
         gameLayer.draw();
     }
 
