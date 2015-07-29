@@ -1,19 +1,19 @@
-var coinMaker = (function main() {
-    var heroAnim = new Animation('Sprites/Coin.png', 1, 10);
+var coin = (function main() {
+    var coinAnimation = new Animation('Sprites/Coin.png', 1, 10);
 
     function updateWrapper() {
-        heroAnim.update();
+        coinAnimation.update();
     }
     setInterval(updateWrapper, 100);
 
     function gameAnimation() {
         requestAnimationFrame(gameAnimation);
-        if (!heroAnim.loaded) {
+        if (!coinAnimation.loaded) {
             return;
         }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.drawImage(heroAnim.image, heroAnim.getX(), heroAnim.getY(), heroAnim.frameWidth, heroAnim.frameHeight, 0, 0, heroAnim.frameWidth, heroAnim.frameHeight);
+        ctx.drawImage(coinAnimation.image, coinAnimation.getX(), coinAnimation.getY(), coinAnimation.frameWidth, coinAnimation.frameHeight, 0, 0, coinAnimation.frameWidth, coinAnimation.frameHeight);
     }
     gameAnimation();
 })();

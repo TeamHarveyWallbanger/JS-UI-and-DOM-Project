@@ -31,10 +31,5 @@
 
     gameLayer.draw();
 
-    var animateBackground = new Kinetic.Animation(function(frame) {
-        img.prototype.x ++;
-    }, gameLayer);
 
-
-    //animateBackground.start();
 })();
