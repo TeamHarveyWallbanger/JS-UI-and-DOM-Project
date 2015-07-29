@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="KineticJS/kinetic-v5.1.0.min.js"></script>
+</head>
+<body>
+    <div id="container">
+    </div>
+    <script>
+        var stage = new Kinetic.Stage({
+            container: 'container',
+            width: 1000,
+            height: 750
+        });
+
+        var floorLayer = new Kinetic.Layer();
+        var bgLayer = new Kinetic.Layer();
+
+        bgLayer.add(new Kinetic.Rect({
+            x: 0,
+            y: 0,
+            width: stage.getWidth(),
+            height: stage.getHeight(),
+            fill: '#7ec0ee'
+        }));
+
+        var floor = new Kinetic.Rect({
+            fill: '#61482e',
+            stroke: 'black',
+            x: 0,
+            y: stage.getHeight() * (3 / 4),
+            width: stage.getWidth(),
+            height: stage.getHeight()
+        });
+
+        floorLayer.add(floor);
+        console.log(floorLayer);
+
+        var obstacle = new Image();
+        obstacle.onload = function () {
+            var rock = new Kinetic.Image({
+                x: 200,
+                y: 300,
+                image:obstacle,
+                width: 150,
+                height: 100
+            });
+
+            floorLayer.add(rock);
+        };
+
+        obstacle.src= '../assets/BunchOfRocks.png';
+
+        stage.add(bgLayer);
+        stage.add(floorLayer);
+
+
+    </script>
+</body>
+</html>
