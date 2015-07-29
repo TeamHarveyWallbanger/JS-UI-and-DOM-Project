@@ -9,34 +9,22 @@ function engine() {
             width: 1000,
             height: 750
         }),
-
-        gameLayer = new Kinetic.Layer(),
-        rect = new Kinetic.Rect({
-            x: 100,
-            y: 150,
-            width: 75,
-            height: 225,
-            fill: 'white',
-            stroke: 'darkgoldenrod',
-            lineWidth: 5
-        });
-
-
-    var backgroundImage = new Image();
-    backgroundImage.src = "../assets/Background.png";
-    backgroundImage.onload = function(){
-        Image = new Kinetic.Image({ x: 0, y: 0, width: 1000, height: 750,image: backgroundImage});
-        gameLayer.add(Image);
-        gameLayer.draw();
-    };
-
-
+        gameLayer = new Kinetic.Layer();
 
     stage.add(gameLayer);
-    gameLayer.add(rect);
 
-    gameLayer.draw();
+    var heroAnim = new Animation(gameLayer, Images['hero.png'], 3, 6, 0, 0, 5, 0);
 
+    stage.add(gameLayer);
 
+    function gameAnimation() {
+
+        requestAnimationFrame(gameAnimation);
+        heroAnim.update();
+
+        gameLayer.draw();
+    }
+
+    gameAnimation();
 }
 engine();
