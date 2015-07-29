@@ -35,7 +35,7 @@ var Coin = (function () {
         }
     });
 
-    Object.defineProperty(Coin.prototype, {
+    Object.defineProperties(Coin.prototype, {
         radious: {
             get: function () {
                 return this._radious;
