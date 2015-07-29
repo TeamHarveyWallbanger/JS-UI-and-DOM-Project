@@ -8,20 +8,24 @@ var Animation = (function() {
 
     function updateFrame(animation) {
         animation._col = ((animation._col + 1) % animation._cols) | 0;
-        if (animation._col === 0) {
+        if (!animation._Row && animation._col === 0) {
             animation._row = ((animation._row + 1) % animation._rows) | 0;
         }
 
         setCrop(animation);
     }
 
-    var Animation = function(layer, image, rows, cols, x, y, framerate) {
+    var Animation = function(layer, image, rows, cols, position, framerate, setRow) {
+        this.position = position;
+
         this._rows = rows;
         this._cols = cols;
 
         this._framerate = framerate;
 
         this._frameCounter = 0;
+
+        this._setRow = setRow;
 
         this._row = 0;
         this._col = 0;
@@ -30,8 +34,8 @@ var Animation = (function() {
         this._frameHeight = image.height / rows;
 
         this._frame = new Kinetic.Image({
-            x: x,
-            y: y,
+            x: this.position.x,
+            y: this.position.y,
             width: this._frameWidth,
             height: this._frameHeight,
             image: image,
