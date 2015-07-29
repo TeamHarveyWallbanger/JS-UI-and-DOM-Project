@@ -13,14 +13,13 @@ function engine() {
 
     stage.add(gameLayer);
 
-    var heroAnim = new Animation(gameLayer, Images['hero.png'], 3, 6, 0, 0, 5, 0);
-
-    stage.add(gameLayer);
+    var heroAnim = new Animation(gameLayer, Images['hero.png'], 3, 6, 0, 0, 5);
+    heroAnim.start(100);
+    heroAnim.lockRow = 0;
+    // heroAnim.lockCol = 5;
 
     function gameAnimation() {
-
         requestAnimationFrame(gameAnimation);
-        heroAnim.update();
 
         gameLayer.draw();
     }

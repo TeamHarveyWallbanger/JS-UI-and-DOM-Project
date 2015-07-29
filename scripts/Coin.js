@@ -5,35 +5,7 @@ var Coin = (function () {
         this.radious = radious;
     }
 
-    Object.defineProperties(Coin.prototype.position, {
-        x: {
-            get: function () {
-                return this.position._x;
-            },
 
-            set: function (value) {
-                if (typeof(value) !== 'number') {
-                    throw { name: 'NotNumberX', message: 'X must be of type number.' };
-                }
-
-                this.position._x = value;
-            }
-        },
-
-        y: {
-            get: function () {
-                return this.position._y;
-            },
-
-            set: function (value) {
-                if (typeof(value) !== 'number') {
-                    throw { name: 'NotNumberX', message: 'X must be of type number.' };
-                }
-
-                this.position._y = value;
-            }
-        }
-    });
 
     Object.defineProperties(Coin.prototype, {
         radious: {
