@@ -26,6 +26,8 @@
         gameLayer.draw();
     };
 
+
+
     gameLayer.add(rect);
     stage.add(gameLayer);
 
