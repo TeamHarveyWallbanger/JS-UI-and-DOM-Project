@@ -1,7 +1,7 @@
 var Coin = (function() {
 	function Coin(position, radious) {
 		this.position = position;
-		this.animation = new Animation('assets/Coin.png', 1, 10);
+		this.animation = new Animation('assets/coin.png', 1, 10);
 		this.radious = radious;
 	}
 
@@ -23,4 +23,12 @@ var Coin = (function() {
     //     ctx.drawImage(coinAnimation.image, coinAnimation.getX(), coinAnimation.getY(), coinAnimation.frameWidth, coinAnimation.frameHeight, 0, 0, coinAnimation.frameWidth, coinAnimation.frameHeight);
     // }
     // gameAnimation();
+
+    function generateRandomCoords(position, radious) {
+
+        
+        return new Coin(position, radious);
+    }
+
 })();
+
