@@ -32,7 +32,7 @@ var Animation = (function() {
     }
 
     function set_image(layer, image) {
-        if (!(layer instanceof Kinetic.layer)) {
+        if (!(layer instanceof Kinetic.Layer)) {
             throw {
                 name: 'NotInstanceOfLayer',
                 message: 'Layer must be an instance of Kinetic.Layer.'

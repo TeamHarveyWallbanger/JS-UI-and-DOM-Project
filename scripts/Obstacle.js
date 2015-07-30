@@ -2,7 +2,7 @@ var Obstacle = (function () {
 
     var ANIMATION_FRAMERATE = 65;
 
-    function Obstacle(position, layer, image) {
+    function Obstacle(layer, image, position) {
         this.position = position;
         this._animation = new Animation(layer, image, 1, 1, position.x, position.y);
         this._animation.start(ANIMATION_FRAMERATE);
