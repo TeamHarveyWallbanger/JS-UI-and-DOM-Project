@@ -22,7 +22,7 @@ function engine() {
     background = new Background(bgLayer, Images['background.png'], stage.getWidth(), stage.getHeight());
     var hero = new Animation(bgLayer, Images['hero.png'],  3, 6, 100, 500);
     var stone = new Obstacle(new Position(350, 590), bgLayer, Images['BunchOfRocks.png']);
-    var cactus = new Obstacle(new Position(400, 590), bgLayer, Images['Cactus.png']);
+    var cactus = new Obstacle(new Position(1500, 200), bgLayer, Images['Cactus.png']);
     hero.lockRow = 0;
     hero.start(115);
 
