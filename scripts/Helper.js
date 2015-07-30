@@ -52,9 +52,9 @@ var Helper = (function() {
             var result = new Position(0, 0),
                 widthDifference = Math.abs(width - image.width),
                 heightDifference = Math.abs(height - image.height);
-
+                debugger;
             result.x = position.x - (widthDifference / 2);
-            result.y = position.y + heightDifference;
+            result.y = position.y - heightDifference;
 
             return result;
         }

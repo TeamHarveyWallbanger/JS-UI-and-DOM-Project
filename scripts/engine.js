@@ -45,7 +45,7 @@ function engine() {
 
     var hero = new Animation(gameLayer, Images['hero.png'],  3, 6, 100, 500);
     //debugger;
-    var stone = new Obstacle(gameLayer, Images['BunchOfRocks.png'], new Position(0, 0), 350, 590);
+    var stone = new Obstacle(gameLayer, Images['BunchOfRocks.png'], new Position(0, 0), 90, 120);
     var coin = new Coin(gameLayer, Images['coin.png'], new Position(700, 100), 50, 350);
     console.log(coin);
     //var cactus = new Obstacle(gameLayer, Images['Cactus.png'], new Position(400, 590), 100, 100);
