@@ -35,7 +35,7 @@ function engine() {
         background.updateX(7);
         stone.updateX(-5);
 
-        if (stone.position.x <= 0) {
+        if (stone.position.x < -250) {
             stone.position.x = stage.getWidth();
         }
         // cactus.updateX(-7);
