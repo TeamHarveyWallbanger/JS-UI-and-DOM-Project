@@ -10,7 +10,13 @@ var Images = (function () {
         'background.png',
         'coin.png',
         'hero.png',
-        'BunchOfRocks.png'
+        'BunchOfRocks.png',
+        'Cactus.png',
+        'CowboyCactus.png',
+        'FriendlyCactus.png',
+        'GrumpyRock.png',
+        'ScaredCactus.png',
+        'ThornyCactus.png'
     ],
         IMAGES_COUNT = IMAGE_NAMES.length,
         loadedImagesCount = 0,
