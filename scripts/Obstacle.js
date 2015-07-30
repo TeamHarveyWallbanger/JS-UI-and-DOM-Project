@@ -30,7 +30,7 @@ var Obstacle = (function () {
 
     Obstacle.prototype.updateX = function(update) {
         this.position.x += update;
-        this._image.x += update;
+        this._image.setX(this._image.getX() + update);
     };
 
     Object.defineProperties(Obstacle.prototype, {
