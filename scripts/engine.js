@@ -48,6 +48,7 @@ function engine() {
     var coin = new Coin(gameLayer, Images['coin.png'], new Position(700, 100), 50, 350);
     console.log(coin);
     // var cactus = new Obstacle(gameLayer, Images['Cactus.png'], new Position(400, 590));
+   var stopWatch=new Timer();
 
     hero.lockRow = 0;
     hero.start(115);
@@ -57,9 +58,14 @@ function engine() {
         debugger;
         background.updateX(7);
         coin.updateX(-5);
-
+        stopWatch.start();
+        stone.updateX(-5);
         if (stone.position.x <= 0) {
             stone.position.x = stage.getWidth();
+        }
+        if(stone.position.x==hero.x){
+            stopWatch.stop();
+            alert(stopWatch.duration().toString());
         }
         // cactus.updateX(-7);
         bgLayer.draw();
