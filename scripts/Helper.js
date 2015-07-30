@@ -45,6 +45,18 @@ var Helper = (function() {
             if (randomResult < percentageChance) {
                 func.apply(func, params);
             }
+        },
+
+        calculateRectColliderToImagePosition: function(position, image, width, height) {
+
+            var result = new Position(0, 0),
+                widthDifference = Math.abs(width - image.width),
+                heighDifference = Math.abs(height - image.height);
+
+            result.x -= (widthDifference / 2);
+            result.y -= heighDifference;
+
+            return result;
         }
 	};
 })();
