@@ -63,11 +63,8 @@ var Coin = (function () {
 
     Object.prototype.updateX = function(update) {
 
-        var newAnimationPosition;
         this.position.x += update;
-        newAnimationPosition = calculateAnimationPosition.call(this);
-        this._animation.x = newAnimationPosition.x;
-        this._animation.y = newAnimationPosition.y;
+        this._animation.x += update;
     };
 
     Object.defineProperties(Coin.prototype, {
