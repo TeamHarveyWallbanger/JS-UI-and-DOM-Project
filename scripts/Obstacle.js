@@ -1,16 +1,36 @@
 var Obstacle = (function () {
 
-    var ANIMATION_FRAMERATE = 65;
+    function privateSetImage(layer, image) {
+
+        if(!(layer instanceof Kinetic.Layer)) {
+            throw new Error('Layer must be an instance of Kinetic.Layer!');
+        }
+
+        if(!(image instanceof Image)) {
+            throw new Error('Image must be an instance of Image!');
+        }
+
+        var imagePosition = Helper.calculateRectColliderToImagePosition(this.position, this.width, this.height, image.width, imame.height);
+
+        this._image = new Kinetic.Image({
+            image: image,
+            x: imagePosition.x,
+            y: imagePosition.y
+        });
+
+        layer.add(this._image);
+    }
 
     function Obstacle(layer, image, position, width, height) {
         this.position = position;
-        this._animation = new Animation(layer, image, 1, 1, position.x, position.y);
-        this._animation.start(ANIMATION_FRAMERATE);
+        this.width = width;
+        this.height = height;
+        privateSetImage.call(this, layer, image);
     }
 
     Obstacle.prototype.updateX = function(update) {
         this.position.x += update;
-        this._animation.x = this.position.x;
+        this._image.setX(this._image.getX() + update);
     };
 
     Object.defineProperties(Obstacle.prototype, {
@@ -26,15 +46,36 @@ var Obstacle = (function () {
 
                 this._position = value;
             }
+        },
+
+        width: {
+            get: function() {
+                return this._width;
+            },
+
+            set: function(value) {
+                if(typeof value !== 'number' && value <= 0) {
+                    throw new Error ('Width must be a number and cannot be less than 1!');
+                }
+
+                this._width = value;
+            }
+        },
+
+        height: {
+            get: function() {
+                return this._height;
+            },
+
+            set: function(value) {
+                if(typeof value !== 'number' && value <= 0) {
+                    throw new Error ('Height must be a number and cannot be less than 1!');
+                }
+
+                this._height = value;
+            }
         }
     });
 
     return Obstacle;
 })();
-
-
-// obstacle: {
-// 	collider: path,
-// 	image: image,
-// 	updatePosition()
-// }

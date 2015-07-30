@@ -21,8 +21,13 @@ function engine() {
 
     background = new Background(bgLayer, Images['background.png'], stage.getWidth(), stage.getHeight());
 
-    debugger;
-    var hero = new Hero(gameLayer, Images['hero.png'], new Position(100, 500), 50, 150);
+    try {
+        var hero = new Hero(gameLayer, Images['hero.png'], new Position(100, 600), 50, 150);
+    } catch (er) {
+        debugger;
+    }
+    // debugger;
+
 
     document.addEventListener('keyup', function(info) {
         if (info.keyCode !== JUMP_KEY_CODE) {
@@ -32,13 +37,19 @@ function engine() {
         if (hero._running) {
             hero.jump();
         }
-
     }, false);
 
+    // debugger;
     function gameAnimation() {
         requestAnimationFrame(gameAnimation);
-        bgLayer.draw();
-        gameLayer.draw();
+        background.updateX(7);
+
+        try {
+            hero.update();
+            stage.draw();
+        } catch (er) {
+            debugger;
+        }
     }
     gameAnimation();
 }

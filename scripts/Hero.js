@@ -4,11 +4,11 @@ var Hero = (function hero() {
 
     function getRunningAnimation(image) {
         var i,
-            frameWidth = image.width / 6,
-            frameHeight = image.height / 3,
+            frameWidth = image.width / 10,
+            frameHeight = image.height,
             result = [];
 
-        for (i = 0; i < 6; i+=1) {
+        for (i = 0; i < 10; i+=1) {
             result.push(frameWidth * i);
             result.push(0);
             result.push(frameWidth);
@@ -100,26 +100,35 @@ var Hero = (function hero() {
 
         var spritePosition = Helper.calculateRectColliderToImagePosition(this._position, this._width, this._height, image.width / 6, image.height / 3);
 
-        this._sprite = new Kinetic.Sprite({
-            x: spritePosition.x,
-            y: spritePosition.y,
-            image: image,
-            animation: 'running',
-            animation: {
-                running: getRunningAnimation(image),
-                jumping: getJumpingAnimation(image),
-                falling: getFallingAnimation(image)
-            },
-            frameRate: 10,
-            frameIndex: 0
-        });
+        // var run = getRunningAnimation(image);
+        // var jump = getJumpingAnimation(image);
+        // var fall = getFallingAnimation(image);
 
-        layer.add(this._sprite);
+        // this._sprite = new Kinetic.Sprite({
+        //     x: 0,
+        //     y: 0,
+        //     image: image,
+        //     animation: 'running',
+        //     animations: {
+        //         running: run,
+        //         // jumping: jump,
+        //         // falling: fall
+        //     },
+        //     frameRate: 10,
+        //     frameIndex: 0
+        // });
+
+        // layer.add(this._sprite);
+        // this._sprite.start();
+
+        this._animation = new Animation(layer, image, 3, 6, spritePosition.x, spritePosition.y );
+        this._animation.lockRow = 0;
+        this._animation.start(100);
     }
 
     function updateY(update) {
         this._position.y += update;
-        this._sprite.setY(this._sprite.getY() + update);
+        this._animation.y += update;
     }
 
     function Hero(layer, image, position, width, height) {
@@ -130,9 +139,9 @@ var Hero = (function hero() {
 
         set_Sprite.call(this, layer, image);
 
-        this._groundY = this._position.y;
+        this._groundY = this._position.y + this._height;
 
-        this._runing = true;
+        this._running = true;
         this._jumping = false;
         this._falling = false;
     }
@@ -158,24 +167,25 @@ var Hero = (function hero() {
         }
 
         updateY.call(this, (JUMP_SPEED * jumpDelta));
-        // heroY += (JUMP_SPEED * jumpDelta);
-        // hero.setY(heroY);
 
         heroFeetY = this._position.y + this._height;
-        if (heroFeetY === GROUND_Y) {
+        if (heroFeetY === this._groundY) {
+            debugger;
             this._falling = false;
-            this._runing = true;
+            this._running = true;
         }
     }
 
     Hero.prototype.jump = function() {
+        // debugger;
         this._jumping = true;
+        this._running = false;
     }
 
     Object.defineProperties(Hero.prototype, {
         running: {
             get: function() {
-                return this._runing;
+                return this._running;
             }
         },
 

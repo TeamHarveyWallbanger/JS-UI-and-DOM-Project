@@ -48,7 +48,6 @@ var Helper = (function() {
         },
 
         calculateRectColliderToImagePosition: function(position, width, height, imageWidth, imageHeight) {
-
             var result = new Position(0, 0),
                 widthDifference = Math.abs(width - imageWidth),
                 heighDifference = Math.abs(height - imageHeight);
