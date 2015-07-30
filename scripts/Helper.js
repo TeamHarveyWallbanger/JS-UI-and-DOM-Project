@@ -24,6 +24,27 @@ var Helper = (function() {
 
 			var diff = max - min;
 			return ((Math.random() * diff) + min) | 0;
-		}
+		},
+
+        chance: function(percentageChance, func) {
+            var params,
+                randomResult;
+
+            if(typeof (func) !== 'function') {
+                throw new Error('Func parameter is not a function!');
+            }
+
+            if ((typeof(percentageChance) !== 'number') || (percentageChance < 1 || 100 < percentageChance)) {
+                throw new Error('Percentage must be a number between 1 and 100!');
+            }
+
+			params = [].slice.call(arguments, 2);
+
+            randomResult = Helper.randomIntInRange(0, 100);
+
+            if (randomResult < percentageChance) {
+                func.apply(func, params);
+            }
+        }
 	};
 })();
