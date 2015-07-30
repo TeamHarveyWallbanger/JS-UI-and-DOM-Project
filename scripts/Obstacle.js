@@ -8,7 +8,7 @@ var Obstacle = (function () {
         this._animation.start(ANIMATION_FRAMERATE);
     }
 
-    Object.prototype.updateX = function(update) {
+    Obstacle.prototype.updateX = function(update) {
         this.position.x += update;
         this._animation.x = this.position.x;
     };
