@@ -30,12 +30,12 @@ var Helper = (function() {
             var params,
                 randomResult;
 
-            if (percentageChance < 1 || 100 < percentageChance) {
-                throw new Error('Percentage must be between 1 and 100!');
-            }
-
             if(typeof (func) !== 'function') {
                 throw new Error('Func parameter is not a function!');
+            }
+
+            if ((typeof(percentageChance) !== 'number') || (percentageChance < 1 || 100 < percentageChance)) {
+                throw new Error('Percentage must be a number between 1 and 100!');
             }
 
 			params = [].slice.call(arguments, 2);
