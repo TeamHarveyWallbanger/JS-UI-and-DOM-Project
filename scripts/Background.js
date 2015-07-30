@@ -46,7 +46,7 @@ var Background = (function() {
     	this._offset = 0;
     }
 
-    Object.prototype.updateX = function(update) {
+    Background.prototype.updateX = function(update) {
     	this._offset = (this._offset + update) % this._patternRect.getWidth();
         this._patternRect.fillPatternOffsetX(this._offset);
     };
