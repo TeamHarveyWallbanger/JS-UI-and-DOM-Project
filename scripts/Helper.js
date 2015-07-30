@@ -34,6 +34,10 @@ var Helper = (function() {
                 throw new Error('Percentage must be between 1 and 100!');
             }
 
+            if(typeof (func) !== 'function') {
+                throw new Error('Func parameter is not a function!');
+            }
+
 			params = [].slice.call(arguments, 2);
 
             randomResult = Helper.randomIntInRange(0, 100);
