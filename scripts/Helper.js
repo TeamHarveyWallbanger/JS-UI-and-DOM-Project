@@ -44,10 +44,12 @@ var Helper = (function() {
             randomNumber = Helper.randomIntInRange(0, 99);
 
             if(randomNumber <= percentageChance) {
-                func.apply(func, params);
+                return func.apply(func, params);
             }
 
-            return func;
+            else {
+                return;
+            }
         }
 	};
 })();
