@@ -10,13 +10,20 @@ var highScores = (function () {
     };
 
     function loadScores() {
-        for (var i = 0; i < 10; i += 1) {
+        var i,
+            playerName,
+            playerScore,
+            currentItem;
+
+        for (i = 0; i < 10; i += 1) {
             if (!localStorage.getItem('score' + (i + 1))) {
-                tenHighest[i] = '--- : ---';
+                //tenHighest[i] = '--- : ---';
                 continue;
             }
 
-            tenHighest[i] = localStorage.getItem('score' + (i + 1));
+            currentItem = localStorage.getItem('score' + (i + 1));
+
+            tenHighest[i] = currentItem;
         }
     }
 
@@ -35,8 +42,35 @@ var highScores = (function () {
         loadScores();
     }
 
+    //Checks if player's score is among the ten highest and adds it if so
     function addCurrentPlayerScore(name, score) {
-        //Checks if player's score is among the ten highest and adds it if so
+        var i,
+            len,
+            playerName,
+            playerScore,
+            lowestScore = tenHighest[tenHighest.length - 1][1];
+
+        if (tenHighest.length < 10) {
+            tenHighest.push([name, score]);
+            tenHighest.sort(function (a, b) {
+                return a[1] - b[1];
+            })
+        } else if (score > lowestScore) {
+            tenHighest[tenHighest.length - 1][0] = name;
+            tenHighest[tenHighest.length - 1][1] = score;
+            tenHighest.sort(function (a, b) {
+                return a[1] - b[1];
+            })
+        }
+
+        resetScores();
+
+        for (i = 0, len = tenHighest.length; i < len; i += 1) {
+            playerName = tenHighest[i][0];
+            playerScore = tenHighest[i][1];
+
+            localStorage.setItem('score' + (i + 1), playerName + ':' + playerScore)
+        }
     }
 
     return highScores;
