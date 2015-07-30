@@ -3,30 +3,8 @@ function engine() {
         setTimeout(engine, 50);
         return;
     }
-    function countdown(minutes) {
-        var seconds = 60;
-        var mins = minutes;
-        function tick() {
-            var counter = document.getElementById("timer");
-            var current_minutes = mins-1;
-            seconds--;
-            counter.innerHTML =
-            current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
-            if( seconds > 0 ) {
-                  setTimeout(tick, 1000);
-            }
-            else {
-            if(mins > 1){
-
-               // countdown(mins-1);
-               setTimeout(function () { countdown(mins - 1); }, 1000);
-
-                }
-            }
-        }
-        tick();
-    }
-    var bgLayer,
+    var JUMP_KEY_CODE = 32, //space
+        bgLayer,
         gameLayer,
         background,
         stage = new Kinetic.Stage({
@@ -43,34 +21,25 @@ function engine() {
 
     background = new Background(bgLayer, Images['background.png'], stage.getWidth(), stage.getHeight());
 
-    var hero = new Animation(gameLayer, Images['hero.png'],  3, 6, 100, 500);
-    var stone = new Obstacle(gameLayer, Images['BunchOfRocks.png'], new Position(350, 590));
-    var coin = new Coin(gameLayer, Images['coin.png'], new Position(700, 100), 50, 350);
-    console.log(coin);
-    // var cactus = new Obstacle(gameLayer, Images['Cactus.png'], new Position(400, 590));
-   var stopWatch=new Timer();
+    debugger;
+    var hero = new Hero(gameLayer, Images['hero.png'], new Position(100, 500), 50, 150);
 
-    hero.lockRow = 0;
-    hero.start(115);
+    document.addEventListener('keyup', function(info) {
+        if (info.keyCode !== JUMP_KEY_CODE) {
+            return;
+        }
+
+        if (hero._running) {
+            hero.jump();
+        }
+
+    }, false);
 
     function gameAnimation() {
         requestAnimationFrame(gameAnimation);
-        background.updateX(7);
-        coin.updateX(-5);
-        stopWatch.start();
-        stone.updateX(-5);
-        if (stone.position.x <= 0) {
-            stone.position.x = stage.getWidth();
-        }
-        if(stone.position.x==hero.x){
-            stopWatch.stop();
-            alert(stopWatch.duration().toString());
-        }
-        // cactus.updateX(-7);
         bgLayer.draw();
         gameLayer.draw();
     }
-    countdown(2);
     gameAnimation();
 }
 engine();

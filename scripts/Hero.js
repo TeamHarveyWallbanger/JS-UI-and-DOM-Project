@@ -1,4 +1,7 @@
 var Hero = (function hero() {
+    var MAX_JUMP_HEIGHT = 450,
+        JUMP_SPEED = 30;
+
     function getRunningAnimation(image) {
         var i,
             frameWidth = image.width / 6,
@@ -95,7 +98,7 @@ var Hero = (function hero() {
             };
         }
 
-        var spritePosition = Helper.calculateRectColliderToImagePosition(this._position, this._width, this._height, image);
+        var spritePosition = Helper.calculateRectColliderToImagePosition(this._position, this._width, this._height, image.width / 6, image.height / 3);
 
         this._sprite = new Kinetic.Sprite({
             x: spritePosition.x,
@@ -114,6 +117,10 @@ var Hero = (function hero() {
         layer.add(this._sprite);
     }
 
+    function updateY(update) {
+        this._position.y += update;
+        this._sprite.setY(this._sprite.getY() + update);
+    }
 
     function Hero(layer, image, position, width, height) {
         set_position.call(this, position);
@@ -123,9 +130,46 @@ var Hero = (function hero() {
 
         set_Sprite.call(this, layer, image);
 
+        this._groundY = this._position.y;
+
         this._runing = true;
         this._jumping = false;
         this._falling = false;
+    }
+
+    Hero.prototype.update = function() {
+        if (!this._jumping && !this._falling) {
+            return;
+        }
+
+        var jumpDelta,
+            heroFeetY = this._position.y + this._height,
+            distanceFromGround = Math.abs(heroFeetY - this._groundY);
+
+        if (distanceFromGround >= MAX_JUMP_HEIGHT) {
+            this._jumping = false;
+            this._falling = true;
+        }
+
+        if (this._falling) {
+            jumpDelta = 1;
+        } else {
+            jumpDelta = -1;
+        }
+
+        updateY.call(this, (JUMP_SPEED * jumpDelta));
+        // heroY += (JUMP_SPEED * jumpDelta);
+        // hero.setY(heroY);
+
+        heroFeetY = this._position.y + this._height;
+        if (heroFeetY === GROUND_Y) {
+            this._falling = false;
+            this._runing = true;
+        }
+    }
+
+    Hero.prototype.jump = function() {
+        this._jumping = true;
     }
 
     Object.defineProperties(Hero.prototype, {
