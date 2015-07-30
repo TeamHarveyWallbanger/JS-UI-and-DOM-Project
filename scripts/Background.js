@@ -3,14 +3,14 @@ var Background = (function() {
 	function set_PatterRect(layer, image, width, height) {
 		if (!(layer instanceof Kinetic.Layer)) {
 			throw {
-				name: 'NotInstanceLayer',
+				name: 'NotInstanceOfLayer',
 				message: 'Layer must be an instance of Kinetic.Layer.'
 			}
 		}
 
 		if (!(image instanceof Image)) {
 			throw {
-				name: 'NotInstanceImage',
+				name: 'NotInstanceOfImage',
 				message: 'Image must be an instance of Image.'
 			}
 		}
