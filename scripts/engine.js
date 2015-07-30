@@ -4,33 +4,28 @@ function engine() {
         return;
     }
 
-    var stage = new Kinetic.Stage({
+    var bgLayer,
+        gameLayer,
+        background,
+        stage = new Kinetic.Stage({
             container: 'kinetic-container',
             width: 1000,
             height: 750
-        }),
-        gameLayer = new Kinetic.Layer();
+        });
 
+    bgLayer = new Kinetic.Layer();
+    stage.add(bgLayer);
+
+    gameLayer = new Kinetic.Layer();
     stage.add(gameLayer);
 
-    //var heroAnim = new Animation(gameLayer, Images['hero.png'], 3, 6, 0, 0, 5);
-//    heroAnim.start(100);
-//    heroAnim.lockRow = 0;
-    // heroAnim.lockCol = 5;
-
-    var radius = (Images['coin.png'].width / 10) / 2;
-    var coinStartPos = new Position(0 + radius, 0 + radius);
-    var coin = new Coin(coinStartPos, radius, gameLayer, Images['coin.png']);
-
-    var obstacleStartPos = new Position(900, 300);
-    var obstacle = new Obstacle(obstacleStartPos, gameLayer, Images['BunchOfRocks.png']);
+    background = new Background(bgLayer, Images['background.png'], stage.getWidth(), stage.getHeight());
 
     function gameAnimation() {
         requestAnimationFrame(gameAnimation);
+        background.updateX(7);
 
-        // coin.updateX(-5);
-        obstacle.updateX(-5);
-
+        bgLayer.draw();
         gameLayer.draw();
     }
 
