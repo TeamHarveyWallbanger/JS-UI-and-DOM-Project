@@ -2,24 +2,62 @@ var Coin = (function () {
 
     var ANIMATION_FRAMERATE = 65;
 
-    function calculateAnimationPosition(coin) {
+    function calculateAnimationPosition() {
 
-        var newX = coin.position.x - coin.radius,
-            newY = coin.position.y - coin.radius;
+        var animX = this.position.x - this.radius,
+            animY = this.position.y - this.radius;
 
-        return new Position(newX, newY);
+        return new Position(animX, animY);
     }
 
-    function Coin(position, radius, layer, image) {
+    function setRadius(value) {
+        if (typeof (value) !== 'number') {
+            throw new Error('Coin radius must be a number!');
+        }
+
+        else if (value <= 0) {
+            throw new Error('Coin radius cannot be less than 1!');
+        }
+
+        Object.defineProperty(this, 'radius', {
+            configurable: false,
+            enumerable: true,
+            writable: false,
+            value: value
+        });
+    }
+
+    function setScoreValue(value) {
+        if ((typeof(value) !== 'number') || (value <= 0)){
+            throw {
+                name: 'InvalidScoreValue',
+                message: 'Score Value must be a number greater than 0.'
+            };
+        }
+
+        Object.defineProperty(this, 'scoreValue', {
+            configurable: false,
+            enumerable: true,
+            writable: false,
+            value: value
+        });
+    }
+
+    function Coin(layer, image, position, radius, scoreValue) {
         var animationPosition,
             diameter = radius * 2;
 
         this.position = position;
-        this.radius = radius;
-        animationPosition = calculateAnimationPosition(this);
+
+        setRadius.call(this, radius);
+        setScoreValue.call(this, scoreValue);
+
+        animationPosition = calculateAnimationPosition.call(this);
         this._animation = new Animation(layer, image, 1, 10, animationPosition.x, animationPosition.y);
+
         this._animation.width = diameter;
         this._animation.height = diameter;
+
         this._animation.start(ANIMATION_FRAMERATE);
     }
 
@@ -27,30 +65,12 @@ var Coin = (function () {
 
         var newAnimationPosition;
         this.position.x += update;
-        newAnimationPosition = calculateAnimationPosition(this);
+        newAnimationPosition = calculateAnimationPosition.call(this);
         this._animation.x = newAnimationPosition.x;
         this._animation.y = newAnimationPosition.y;
     };
 
     Object.defineProperties(Coin.prototype, {
-        radius: {
-            get: function () {
-                return this._radius;
-            },
-
-            set: function (value) {
-
-                if (typeof (value) !== 'number') {
-                    throw new Error('Coin radius must be a number!');
-                }
-                else if (value <= 0) {
-                    throw new Error('Coin radius cannot be less than 1!');
-                }
-
-                this._radius = value;
-            }
-        },
-
         position: {
             get: function () {
                 return this._position;
