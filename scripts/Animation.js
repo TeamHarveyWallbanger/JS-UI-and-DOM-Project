@@ -1,18 +1,63 @@
 var Animation = (function() {
-    function validateRowsCols(number) {
-        if (typeof(number) !== 'number' || number < 1) {
+    function setRows(value) {
+        if (typeof(value) !== 'number' || value < 1) {
             throw {
-                name: 'InvalidRowsOrCols',
-                message: 'Rows and Cols must be numbers equal to or greater than 1.'
+                name: 'InvalidRows',
+                message: 'Rows must be number equal to or greater than 1.'
             };
         }
+
+        Object.defineProperty(this, 'rows',{
+            configurable: false,
+            enumerable: true,
+            writable: false,
+            value: value
+        });
     }
 
-    function setCrop(animation) {
-        var cropX = animation._frameWidth * animation._col,
-            cropY = animation._frameHeight * animation._row;
+    function setCols(value) {
+        if (typeof(value) !== 'number' || value < 1) {
+            throw {
+                name: 'InvalidCols',
+                message: 'Cols must be number equal to or greater than 1.'
+            };
+        }
 
-        animation._image.setCrop({x: cropX, y: cropY, width: animation._frameWidth, height: animation._frameHeight});
+        Object.defineProperty(this, 'cols',{
+            configurable: false,
+            enumerable: true,
+            writable: false,
+            value: value
+        });
+    }
+
+    function set_image(layer, image) {
+        if (!(layer instanceof Kinetic.layer)) {
+            throw {
+                name: 'NotInstanceOfLayer',
+                message: 'Layer must be an instance of Kinetic.Layer.'
+            };
+        }
+
+       if (!(image instanceof Image)) {
+            throw {
+                name: 'NotInstanceOfImage',
+                message: 'Image must be an instance of Image.'
+            };
+        }
+
+        this._image = new Kinetic.Image({
+            image: image
+        });
+
+        layer.add(this._image);
+    }
+
+    function updateCrop() {
+        var cropX = this._frameWidth * this._col,
+            cropY = this._frameHeight * this._row;
+
+        this._image.setCrop({x: cropX, y: cropY, width: this._frameWidth, height: this._frameHeight});
     }
 
     function updateFrame(animation) {
@@ -24,26 +69,12 @@ var Animation = (function() {
             animation._row = ((animation._row + 1) % animation.rows) | 0;
         }
 
-        setCrop(animation);
+        updateCrop.call(animation);
     }
 
     var Animation = function(layer, image, rows, cols, x, y) {
-        validateRowsCols(rows);
-        validateRowsCols(cols);
-        Object.defineProperties(this, {
-            rows: {
-                configurable: false,
-                enumerable: true,
-                writable: false,
-                value: rows
-            },
-            cols: {
-                configurable: false,
-                enumerable: true,
-                writable: false,
-                value: cols
-            }
-        });
+        setRows.call(this, rows);
+        setCols.call(this, cols);
 
         this._row = 0;
         this._col = 0;
@@ -56,18 +87,16 @@ var Animation = (function() {
         this._frameWidth = image.width / cols;
         this._frameHeight = image.height / rows;
 
-        this._image = new Kinetic.Image({
-            x: x,
-            y: y,
-            image: image
-        });
+        set_image.call(this, layer, image);
+
+        this.x = x;
+        this.y = y;
 
         this.width = this._frameWidth;
         this.height = this._frameHeight;
 
-        setCrop(this);
+        updateCrop.call(this);
 
-        layer.add(this._image);
     };
 
     Animation.prototype.start = function(milliseconds) {
@@ -134,7 +163,7 @@ var Animation = (function() {
                     }
 
                     this._row = value;
-                    setCrop(this);
+                    updateCrop.call(this);
                 }
 
                 this._lockRow = value;
@@ -163,7 +192,7 @@ var Animation = (function() {
                     }
 
                     this._col = value;
-                    setCrop(this);
+                    updateCrop.call(this);
                 }
 
                 this._lockCol = value;
