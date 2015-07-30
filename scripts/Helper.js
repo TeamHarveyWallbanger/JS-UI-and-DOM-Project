@@ -47,16 +47,18 @@ var Helper = (function() {
             }
         },
 
-        calculateRectColliderToImagePosition: function(position, image, width, height) {
+        calculateRectColliderToImagePosition: function(position, width, height, image) {
 
             var result = new Position(0, 0),
                 widthDifference = Math.abs(width - image.width),
                 heighDifference = Math.abs(height - image.height);
 
-            result.x -= (widthDifference / 2);
-            result.y -= heighDifference;
+            result.x = position.x - (widthDifference / 2);
+            result.y = position.y - heighDifference;
 
             return result;
-        }
+        },
+
+
 	};
 })();
