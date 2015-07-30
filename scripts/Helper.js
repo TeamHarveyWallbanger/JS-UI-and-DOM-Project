@@ -27,28 +27,19 @@ var Helper = (function() {
 		},
 
         chance: function(percentageChance, func) {
-
             var params,
-                randomNumber;
+                randomResult;
 
-            if(!(percentageChance > 0 && percentageChance < 101)) {
+            if (percentageChance < 1 || 100 < percentageChance) {
                 throw new Error('Percentage must be between 1 and 100!');
             }
 
-            if(arguments.length > 2) {
-                params = arguments.slice(2, arguments.length - 1).map(Number);
-            }
+			params = [].slice.call(arguments, 2);
 
-            params = params || [];
+            randomResult = Helper.randomIntInRange(0, 100);
 
-            randomNumber = Helper.randomIntInRange(0, 99);
-
-            if(randomNumber <= percentageChance) {
-                return func.apply(func, params);
-            }
-
-            else {
-                return;
+            if (randomResult < percentageChance) {
+                func.apply(func, params);
             }
         }
 	};
