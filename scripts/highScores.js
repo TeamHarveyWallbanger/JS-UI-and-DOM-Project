@@ -1,3 +1,5 @@
+//HighScores should be loaded at game initialization!
+
 var highScores = (function () {
     var highScores,
 		sortedHighScores = [],
@@ -22,7 +24,7 @@ var highScores = (function () {
             }
 
             currentItem = localStorage.getItem('score' + (i + 1));
-            playerName = currentItem.match(/[\w\s]+/)[0];
+            playerName = currentItem.match(/[ A-z]+/)[0];
             playerScore = +currentItem.match(/[\d]+/)[0];
 
             sortedHighScores.push([playerName, playerScore]);
@@ -64,6 +66,9 @@ var highScores = (function () {
             playerName,
             playerScore,
             length = sortedHighScores.length;
+
+        validateName(name);
+        validateScore(score);
 
         if (length < NUMBER_OF_HIGH_SCORES_TO_SAVE) {
             sortedHighScores.push([name, score]);

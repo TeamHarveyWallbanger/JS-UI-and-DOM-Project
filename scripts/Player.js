@@ -2,6 +2,8 @@ var Player = (function () {
     var STARTING_LIVES = 3;
 
     function Player(name) {
+        validateName(name);
+
         this.name = name;
         this.score = 0;
         this.lives = STARTING_LIVES;
