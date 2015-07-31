@@ -47,16 +47,22 @@ var Helper = (function() {
             }
         },
 
-        calculateRectColliderToImagePosition: function(position, image, width, height) {
-
+        calculateRectColliderToImagePosition: function(position, width, height, imageWidth, imageHeight) {
             var result = new Position(0, 0),
-                widthDifference = Math.abs(width - image.width),
-                heighDifference = Math.abs(height - image.height);
+                widthDifference = Math.abs(width - imageWidth),
+                heighDifference = Math.abs(height - imageHeight);
 
-            result.x -= (widthDifference / 2);
-            result.y -= heighDifference;
+            result.x = position.x - (widthDifference / 2);
+            result.y = position.y - heighDifference;
 
             return result;
+        },
+
+        distance: function(first, second) {
+        	var xDiff = first.x - second.x,
+        		yDiff = first.y - second.y;
+
+    		return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
         }
 	};
 })();

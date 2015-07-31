@@ -109,6 +109,10 @@ var Animation = (function() {
         this._isRunning = false;
     };
 
+    Animation.prototype.remove = function() {
+        this._image.remove();
+    };
+
     Object.defineProperties(Animation.prototype, {
         x: {
             get: function() {
