@@ -220,8 +220,19 @@ var Hero = (function hero() {
         return false;
     };
 
-    Hero.prototype.hasHitObstacle = function(coin) {
-        var edges = getEdges.call(this);
+    Hero.prototype.hasHitObstacle = function(obstacle) {
+        var i,
+            len,
+            distance,
+            edges = getEdges.call(this);
+
+        for (i = 0, len = edges.length; i < len; i+=1) {
+            if ((obstacle.position.x <= edges[i].position.x) && (edges[i].position.x <= obstacle.position.x + obstacle.width)) {
+                if ((obstacle.position.y <= edges[i].position.y) && (edges[i].position.y <= obstacle.position.y + obstacle.height)) {
+                    return true;
+                }
+            }
+        }
 
         return false;
     };

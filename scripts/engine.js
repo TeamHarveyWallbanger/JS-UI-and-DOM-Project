@@ -27,7 +27,8 @@ function engine() {
         debugger;
     }
 
-    var coin = new Coin(gameLayer, Images['coin.png'], new Position(1000, 550), 50, 100);
+    // var coin = new Coin(gameLayer, Images['coin.png'], new Position(1000, 550), 50, 100);
+    var obstacle = new Obstacle
     // debugger;
 
 
