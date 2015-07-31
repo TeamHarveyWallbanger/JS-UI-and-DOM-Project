@@ -67,6 +67,10 @@ var Coin = (function () {
         this._animation.x += update;
     };
 
+    Coin.prototype.remove = function() {
+        this._animation.remove();
+    };
+
     Object.defineProperties(Coin.prototype, {
         position: {
             get: function () {

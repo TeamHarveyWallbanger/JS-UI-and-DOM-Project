@@ -131,6 +131,28 @@ var Hero = (function hero() {
         this._animation.y += update;
     }
 
+    function getEdges() {
+        var topLeft,
+            topRight,
+            bottomLeft,
+            bottomRight,
+            edges = [];
+
+        topLeft = this._position;
+        edges.push(topLeft);
+
+        topRight = new Position(this._position.x + this._width, this._position.y);
+        edges.push(topRight);
+
+        bottomLeft = new Position(this._position.x, this._position.y + this._height);
+        edges.push(bottomLeft);
+
+        bottomRight = new Position(this._position.x + this._width, this._position.y + this._height);
+        edges.push(bottomRight);
+
+        return edges;
+    }
+
     function Hero(layer, image, position, width, height) {
         set_position.call(this, position);
 
@@ -174,13 +196,35 @@ var Hero = (function hero() {
             this._falling = false;
             this._running = true;
         }
-    }
+    };
 
     Hero.prototype.jump = function() {
         // debugger;
         this._jumping = true;
         this._running = false;
-    }
+    };
+
+    Hero.prototype.hasHitCoin = function(coin) {
+        var i,
+            len,
+            distance,
+            edges = getEdges.call(this);
+
+        for (i = 0, len = edges.length; i < len; i+=1) {
+            distance = Helper.distance(edges[i], coin.position);
+            if (distance <= coin.radius) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
+    Hero.prototype.hasHitObstacle = function(coin) {
+        var edges = getEdges.call(this);
+
+        return false;
+    };
 
     Object.defineProperties(Hero.prototype, {
         running: {

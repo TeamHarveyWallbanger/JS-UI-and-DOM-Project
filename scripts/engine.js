@@ -26,6 +26,8 @@ function engine() {
     } catch (er) {
         debugger;
     }
+
+    var coin = new Coin(gameLayer, Images['coin.png'], new Position(1000, 550), 50, 100);
     // debugger;
 
 
@@ -43,13 +45,22 @@ function engine() {
     function gameAnimation() {
         requestAnimationFrame(gameAnimation);
         background.updateX(7);
+        if (coin !== undefined) {
 
-        try {
-            hero.update();
-            stage.draw();
-        } catch (er) {
-            debugger;
+            coin.updateX(-5);
         }
+
+        if (coin !== undefined && coin.position.x <= 0) {
+            coin.position.x = 100;
+        }
+
+        if ((coin !== undefined) && hero.hasHitCoin(coin)) {
+            console.log('HIT!');
+            coin.remove();
+            coin = undefined;
+        }
+        hero.update();
+        stage.draw();
     }
     gameAnimation();
 }

@@ -58,6 +58,11 @@ var Helper = (function() {
             return result;
         },
 
+        distance: function(first, second) {
+        	var xDiff = first.x - second.x,
+        		yDiff = first.y - second.y;
 
+    		return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
 	};
 })();
