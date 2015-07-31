@@ -226,7 +226,6 @@ var Hero = (function hero() {
             edges = getEdges.call(this);
 
         for (i = 0, len = edges.length; i < len; i+=1) {
-            debugger;
             if ((obstacle.position.x <= edges[i].x) && (edges[i].x <= obstacle.position.x + obstacle.width)) {
                 if ((obstacle.position.y <= edges[i].y) && (edges[i].y <= obstacle.position.y + obstacle.height)) {
                     return true;

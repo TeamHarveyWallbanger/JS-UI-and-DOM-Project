@@ -63,6 +63,22 @@ var Helper = (function() {
         		yDiff = first.y - second.y;
 
     		return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        },
+
+        removeArrayNulls: function(arr) {
+            var i,
+                len,
+                indices = [];
+
+            for (i = 0, len = arr.length; i < len; i+=1) {
+                if (arr[i] === null) {
+                    indices.push(i);
+                }
+            }
+
+            for (i = 0, len = indices.length; i < len; i+=1) {
+                arr.splice(indices[i], 1);
+            }
         }
 	};
 })();
