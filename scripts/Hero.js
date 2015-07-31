@@ -1,6 +1,6 @@
 var Hero = (function hero() {
     var MAX_JUMP_HEIGHT = 450,
-        JUMP_SPEED = 30;
+        JUMP_SPEED = 20;
 
     function getRunningAnimation(image) {
         var i,
@@ -192,7 +192,6 @@ var Hero = (function hero() {
 
         heroFeetY = this._position.y + this._height;
         if (heroFeetY === this._groundY) {
-            debugger;
             this._falling = false;
             this._running = true;
         }
@@ -227,8 +226,9 @@ var Hero = (function hero() {
             edges = getEdges.call(this);
 
         for (i = 0, len = edges.length; i < len; i+=1) {
-            if ((obstacle.position.x <= edges[i].position.x) && (edges[i].position.x <= obstacle.position.x + obstacle.width)) {
-                if ((obstacle.position.y <= edges[i].position.y) && (edges[i].position.y <= obstacle.position.y + obstacle.height)) {
+            debugger;
+            if ((obstacle.position.x <= edges[i].x) && (edges[i].x <= obstacle.position.x + obstacle.width)) {
+                if ((obstacle.position.y <= edges[i].y) && (edges[i].y <= obstacle.position.y + obstacle.height)) {
                     return true;
                 }
             }

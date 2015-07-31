@@ -28,7 +28,7 @@ function engine() {
     }
 
     // var coin = new Coin(gameLayer, Images['coin.png'], new Position(1000, 550), 50, 100);
-    var obstacle = new Obstacle
+    var stone = new Obstacle(gameLayer, Images['BunchOfRocks.png'], new Position(1000, 600), 90, 120);
     // debugger;
 
 
@@ -46,19 +46,20 @@ function engine() {
     function gameAnimation() {
         requestAnimationFrame(gameAnimation);
         background.updateX(7);
-        if (coin !== undefined) {
+        if (stone !== undefined) {
 
-            coin.updateX(-5);
+            stone.updateX(-10);
         }
 
-        if (coin !== undefined && coin.position.x <= 0) {
-            coin.position.x = 100;
+        if (stone !== undefined && stone.position.x <= 0) {
+            stone.updateX(1000);
         }
 
-        if ((coin !== undefined) && hero.hasHitCoin(coin)) {
+        if ((stone !== undefined) && hero.hasHitObstacle(stone)) {
+            debugger;
             console.log('HIT!');
-            coin.remove();
-            coin = undefined;
+            stone.remove();
+            stone = undefined;
         }
         hero.update();
         stage.draw();

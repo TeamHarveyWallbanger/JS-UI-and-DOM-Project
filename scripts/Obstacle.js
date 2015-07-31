@@ -10,7 +10,7 @@ var Obstacle = (function () {
             throw new Error('Image must be an instance of Image!');
         }
 
-        var imagePosition = Helper.calculateRectColliderToImagePosition(this.position, this.width, this.height, image.width, imame.height);
+        var imagePosition = Helper.calculateRectColliderToImagePosition(this.position, this.width, this.height, image.width, image.height);
 
         this._image = new Kinetic.Image({
             image: image,
@@ -32,6 +32,10 @@ var Obstacle = (function () {
         this.position.x += update;
         this._image.setX(this._image.getX() + update);
     };
+
+    Obstacle.prototype.remove = function() {
+        this._image.remove();
+    }
 
     Object.defineProperties(Obstacle.prototype, {
         position: {
