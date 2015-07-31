@@ -13,7 +13,7 @@ TeamHarveyWallbanger
 *   Калоян Петров -- KPetrov
 *   Мариян Драганов -- mdraganov
 *   Павел Дочев -- PavelDochev
-*   Виктор Димитров -- viktorDimitrov --> НЕ Е УЧАСТВАЛ!
+*   Виктор Димитров -- viktorDimitrov --> не е участвал 
 
 ##Project purpose
 
