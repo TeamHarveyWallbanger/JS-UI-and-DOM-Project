@@ -1,92 +1,70 @@
-function distance(x1, y1, x2, y2) {
-	var xDiff = x1 - x2,
-		yDiff = y1 - y2,
-		xDiffSquered = xDiff * xDiff,
-		yDiffSquered = yDiff * yDiff,
-		distance = Math.sqrt(xDiffSquered + yDiffSquered);
+function engine() {
+    if (!Images.areAllLoaded()) {
+        setTimeout(engine, 50);
+        return;
+    }
+    var JUMP_KEY_CODE = 32, //space
+        bgLayer,
+        gameLayer,
+        background,
+        stage = new Kinetic.Stage({
+            container: 'kinetic-container',
+            width: 1000,
+            height: 750
+    });
 
-	return distance;
+    bgLayer = new Kinetic.Layer();
+    stage.add(bgLayer);
+
+    gameLayer = new Kinetic.Layer();
+    stage.add(gameLayer);
+
+    background = new Background(bgLayer, Images['background.png'], stage.getWidth(), stage.getHeight());
+
+    try {
+        var hero = new Hero(gameLayer, Images['hero.png'], new Position(100, 600), 50, 150);
+    } catch (er) {
+        debugger;
+    }
+
+    // var coin = new Coin(gameLayer, Images['coin.png'], new Position(1000, 550), 50, 100);
+    var stone = new Obstacle(gameLayer, Images['BunchOfRocks.png'], new Position(1000, 600), 90, 120);
+    // debugger;
+
+
+    document.addEventListener('keyup', function(info) {
+        if (info.keyCode !== JUMP_KEY_CODE) {
+            return;
+        }
+
+        if (hero._running) {
+            hero.jump();
+        }
+    }, false);
+
+    // debugger;
+    function gameAnimation() {
+        requestAnimationFrame(gameAnimation);
+        background.updateX(7);
+        if (stone !== undefined) {
+
+            stone.updateX(-10);
+        }
+
+        if (stone !== undefined && stone.position.x <= 0) {
+            stone.updateX(1000);
+        }
+
+        if ((stone !== undefined) && hero.hasHitObstacle(stone)) {
+            debugger;
+            console.log('HIT!');
+            stone.remove();
+            stone = undefined;
+        }
+        hero.update();
+        stage.draw();
+    }
+    gameAnimation();
 }
-(function engine() {
-	var GROUND_Y = 980,
-		HERO_X = 50,
-		HERO_WIDTH = 100,
-		HERO_HEIGHT = 160,
-		MAX_JUMP_HEIGHT = 450,
-		JUMP_SPEED = 30,
-		RUN_SPEED = 30,
-		JUMP_KEY_CODE = 32, //space
-		jumping = false,
-		falling = false,
-	 	stage = new Kinetic.Stage({
-			container: 'kinetic-container',
-			width: 1920,
-			height: 1080
-		}),
-		gameLayer = new Kinetic.Layer(),
-		hero = new Kinetic.Rect({
-			x: HERO_X,
-			y: GROUND_Y - HERO_HEIGHT,
-			width: HERO_WIDTH,
-			height: HERO_HEIGHT,
-			fill: 'white',
-			stroke: 'darkgoldenrod',
-			lineWidth: 5
-		});
-
-	gameLayer.add(hero);
-	stage.add(gameLayer);
-
-	function jumpingUpate() {
-		if (!jumping && !falling) {
-			return;
-		}
-
-		var jumpDelta
-			heroY = hero.getY(),
-			heroHeight = hero.getHeight(),
-			heroFeetY = heroY + heroHeight,
-			distanceFromGround = Math.abs(heroFeetY - GROUND_Y);
-
-		if (distanceFromGround >= MAX_JUMP_HEIGHT) {
-			jumping = false;
-			falling = true;
-		}
-
-		if (falling) {
-			jumpDelta = 1;
-		} else {
-			jumpDelta = -1;
-		}
-
-		heroY += (JUMP_SPEED * jumpDelta);
-		hero.setY(heroY);
-
-		heroFeetY = heroY + heroHeight;
-		if (heroFeetY === GROUND_Y) {
-			falling = false;
-		}
-	}
-
-	document.addEventListener('keyup', function(info) {
-		if (info.keyCode !== JUMP_KEY_CODE) {
-			return;
-		}
-
-		debugger;
-		if ((hero.getY() + hero.getHeight()) === GROUND_Y) {
-			jumping = true;
-		}
-
-	}, false);
-
-	function gameAnimation() {
-		requestAnimationFrame(gameAnimation)
-
-		jumpingUpate();
-
-		gameLayer.draw();
-	}
-	gameAnimation();
-
-})();
+engine();
+>>>>>>> master
